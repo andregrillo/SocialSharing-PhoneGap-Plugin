@@ -1,3 +1,4 @@
+cordova.define("cordova-plugin-x-socialsharing.SocialSharing", function(require, exports, module) {
 function SocialSharing() {
 }
 
@@ -22,6 +23,10 @@ SocialSharing.prototype.available = function (callback) {
   cordova.exec(function (avail) {
     callback(avail ? true : false);
   }, null, "SocialSharing", "available", []);
+};
+    
+SocialSharing.prototype.shareGif = function (gifBase64, successCallback, errorCallback) {
+    cordova.exec(successCallback, this._getErrorCallback(errorCallback, "shareGif"), "SocialSharing", "shareGif", [gifBase64]);
 };
 
 // this is the recommended way to share as it is the most feature-rich with respect to what you pass in and get back
@@ -118,6 +123,10 @@ SocialSharing.prototype.shareVia = function (via, message, subject, fileOrFileAr
 SocialSharing.prototype.saveToPhotoAlbum = function (fileOrFileArray, successCallback, errorCallback) {
   cordova.exec(successCallback, this._getErrorCallback(errorCallback, "saveToPhotoAlbum"), "SocialSharing", "saveToPhotoAlbum", [this._asArray(fileOrFileArray)]);
 };
+    
+SocialSharing.prototype.saveGifToPhotoAlbum = function (gifUrl, successCallback, errorCallback) {
+    cordova.exec(successCallback, this._getErrorCallback(errorCallback, "saveGifToPhotoAlbum"), "SocialSharing", "saveGifToPhotoAlbum", gifUrl);
+};
 
 SocialSharing.prototype._asArray = function (param) {
   if (param == null) {
@@ -155,3 +164,5 @@ SocialSharing.install = function () {
 };
 
 cordova.addConstructor(SocialSharing.install);
+
+});
